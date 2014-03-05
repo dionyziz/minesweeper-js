@@ -87,12 +87,12 @@ function render() {
                     drawBomb(x, y);
                 }
                 else {
-		            if (field[y][x] == 0) {
+                    if (field[y][x] == 0) {
                         drawZero(x, y);
                     } else {
-       	                drawNumber(x, y, field[y][x]);
-            	    }
-				}
+                        drawNumber(x, y, field[y][x]);
+                    }
+                }
             }
             else if (visible[y][x] == 2) {
                 drawFlag(x, y);
