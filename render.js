@@ -86,10 +86,10 @@ function render() {
                 if (field[y][x] == -1) {
                     drawBomb(x, y);
                 }
-				else {
+                else {
 		            if (field[y][x] == 0) {
-		                drawZero(x, y);
-		            } else {
+                        drawZero(x, y);
+                    } else {
        	                drawNumber(x, y, field[y][x]);
             	    }
 				}
