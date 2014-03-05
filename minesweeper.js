@@ -67,6 +67,26 @@ function fill(x, y) {
     }
 }
 
+function fillAllVictory() {
+    for (var y = 0; y < ROWS; ++y) {
+        for (var x = 0; x < COLS; ++x) {
+            if (field[y][x] >= 0) {
+                visible[y][x] = 1;
+            } else {
+                visible[y][x] = 2;
+            }
+        }
+    }
+}
+
+function fillAllDefeat() {
+    for (var y = 0; y < ROWS; ++y) {
+        for (var x = 0; x < COLS; ++x) {
+            visible[y][x] = 1;
+        }
+    }
+}
+
 function openBlock(x, y) {
     if (gameOver) {
         return;
@@ -85,6 +105,7 @@ function openBlock(x, y) {
             return;
         }
         gameOver = true;
+        fillAllDefeat();
         stopTimer();
         onGameOver();
     }
@@ -95,6 +116,7 @@ function openBlock(x, y) {
         }
         if (checkVictory()) {
             gameOver = true;
+            fillAllVictory();
             stopTimer();
             onVictory();
         }
