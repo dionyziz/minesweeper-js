@@ -1,15 +1,22 @@
+var gameOver = false;
+var firstBlock = true;
+
 var field = [];
+var visible = [];
 var ROWS = 10, COLS = 10, BOMBS = 10;
-var W = 500, H = 500;
 
 function inBounds(x, y) {
     return 0 <= x && x < COLS && 0 <= y && y < ROWS;
 }
 
 function init() {
+    firstBlock = true;
+
     for (var y = 0; y < ROWS; ++y) {
         field[y] = [];
+        visible[y] = [];
         for (var x = 0; x < COLS; ++x) {
+            visible[y][x] = 0; 
             if (Math.random() < BOMBS / (COLS * ROWS)) {
                 field[y][x] = -1;
             }
@@ -37,21 +44,97 @@ function init() {
             }
         }
     }
-
-    console.log(field);
 }
 
-init();
-render();
-
-function drawNumber(x, y, number) {
-    ctx.drawText(x, y, number);
-}
-
-function render() {
-    for (var x = 0; x < COLS; ++x) {
-        for (var y = 0; y < ROWS; ++y) {
-            drawNumber(x, y, field[y][x]);
+function fill(x, y) {
+    if (field[y][x] == -1 || visible[y][x] == 1) {
+        return;
+    }
+    visible[y][x] = 1;
+    if (field[y][x] > 0) {
+        return;
+    }
+    // it's a zero
+    for (var yy = -1; yy <= 1; ++yy) {
+        for (var xx = -1; xx <= 1; ++xx) {
+            if (xx == 0 && yy == 0) {
+                continue;
+            }
+            if (inBounds(x + xx, y + yy)) {
+                fill(x + xx, y + yy);
+            }
         }
     }
 }
+
+function openBlock(x, y) {
+    if (gameOver) {
+        return;
+    }
+    if (visible[y][x] == 2) {
+        return;
+    }
+
+    fill(x, y);
+    visible[y][x] = 1;
+    if (field[y][x] == -1) {
+        if (firstBlock) {
+            // Avoided bomb!
+            init();
+            openBlock(x, y);
+            return;
+        }
+        gameOver = true;
+        stopTimer();
+        onGameOver();
+    }
+    else {
+        if (firstBlock) {
+            startTimer();
+            firstBlock = false;
+        }
+        if (checkVictory()) {
+            gameOver = true;
+            stopTimer();
+            onVictory();
+        }
+    }
+}
+
+var timer, secondCount = 0;
+
+function startTimer() {
+    timer = setInterval(timerTick, 1000);
+}
+
+function stopTimer() {
+    clearInterval(timer);
+}
+
+function checkVictory() {
+    for (var y = 0; y < ROWS; ++y) {
+        for (var x = 0; x < COLS; ++x) {
+            if (field[y][x] != -1 && visible[y][x] != 1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function flagBlock(x, y) {
+    if (gameOver) {
+        return;
+    }
+
+    switch (visible[y][x]) {
+        case 0:
+            visible[y][x] = 2;
+            break;
+        case 2:
+            visible[y][x] = 0;
+            break;
+    }
+}
+
+init();

@@ -1,17 +1,33 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title></title>
-        <script src='minesweeper.js'></script>
+        <title>Minesweeper</title>
         <style>
+            html {
+                font-family: "Trebuchet MS";
+            }
             canvas {
                 border: 1px solid black;
                 margin: auto;
                 display: block;
             }
+            img {
+                display: none;
+            }
+            #timer {
+                text-align: center;
+                font-size: 120%;
+                margin: 10px;
+            }
         </style>
     </head>
     <body>
+        <img src='bomb.jpg' alt='bomb' id='bomb' />
+        <img src='flag.png' alt='flag' id='flag' />
+
+        <div id='timer'>Minesweeper</div>
         <canvas width='500' height='500' />
+        <script src='minesweeper.js'></script>
+        <script src='render.js'></script>
     </body>
 </html>
