@@ -34,6 +34,7 @@ function gameToRenderCoordinates(x, y) {
 
 function drawZero(x, y) {
     var img = document.getElementById('grey');
+    var p = gameToRenderCoordinates(x, y);
     ctx.drawImage(img, p.x, p.y, BLOCK_W, BLOCK_H);
 }
 
