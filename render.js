@@ -33,8 +33,8 @@ function gameToRenderCoordinates(x, y) {
 }
 
 function drawZero(x, y) {
-	var img = document.getElementById('grey');
-	ctx.drawImage(img, p.x, p.y, BLOCK_W, BLOCK_H);
+    var img = document.getElementById('grey');
+    ctx.drawImage(img, p.x, p.y, BLOCK_W, BLOCK_H);
 }
 
 function drawNumber(x, y, number) {
@@ -87,11 +87,11 @@ function render() {
                     drawBomb(x, y);
                 }
 				else {
-					//if (field[y][x] == 0) {
-				//		drawZero(x, y);
-			//		} else {
-                    	drawNumber(x, y, field[y][x]);
-              //  	}
+		            if (field[y][x] == 0) {
+		                drawZero(x, y);
+		            } else {
+       	                drawNumber(x, y, field[y][x]);
+            	    }
 				}
             }
             else if (visible[y][x] == 2) {
