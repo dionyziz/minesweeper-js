@@ -40,6 +40,9 @@ function drawZero(x, y) {
 
 function drawNumber(x, y, number) {
     var p = findTextLocation(x, y, number);
+    var img = document.getElementById('grey');
+    var c = gameToRenderCoordinates(x, y);
+    ctx.drawImage(img, c.x, c.y, BLOCK_W, BLOCK_H);
     ctx.fillStyle = colors[number];
     ctx.fillText(number, p.x, p.y);
 }
