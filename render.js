@@ -1,4 +1,3 @@
-
 var W = 500, H = 500;
 var canvas = document.getElementsByTagName('canvas')[0];
 var ctx = canvas.getContext('2d');
