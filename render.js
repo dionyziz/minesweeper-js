@@ -1,3 +1,4 @@
+
 var W = 500, H = 500;
 var canvas = document.getElementsByTagName('canvas')[0];
 var ctx = canvas.getContext('2d');
@@ -31,9 +32,13 @@ function gameToRenderCoordinates(x, y) {
     };
 }
 
+function drawZero(x, y) {
+	var img = document.getElementById('grey');
+	ctx.drawImage(img, p.x, p.y, BLOCK_W, BLOCK_H);
+}
+
 function drawNumber(x, y, number) {
     var p = findTextLocation(x, y, number);
-
     ctx.fillStyle = colors[number];
     ctx.fillText(number, p.x, p.y);
 }
@@ -42,7 +47,6 @@ function drawBox(x, y) {
     ctx.strokeStyle = 'black';
     ctx.strokeRect(x * BLOCK_W, y * BLOCK_H, BLOCK_W, BLOCK_H);
 }
-
 
 function drawFlag(x, y) {
     var img = document.getElementById('flag');
@@ -82,9 +86,13 @@ function render() {
                 if (field[y][x] == -1) {
                     drawBomb(x, y);
                 }
-                else {
-                    drawNumber(x, y, field[y][x]);
-                }
+				else {
+					//if (field[y][x] == 0) {
+				//		drawZero(x, y);
+			//		} else {
+                    	drawNumber(x, y, field[y][x]);
+              //  	}
+				}
             }
             else if (visible[y][x] == 2) {
                 drawFlag(x, y);
