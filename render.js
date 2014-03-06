@@ -3,8 +3,6 @@ var canvas = document.getElementsByTagName('canvas')[0];
 var ctx = canvas.getContext('2d');
 var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
 var colors = {
- '-1': 'red',
-    0: 'gray',
     1: 'blue',
     2: 'green',
     3: 'red',
