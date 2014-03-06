@@ -31,9 +31,17 @@ function gameToRenderCoordinates(x, y) {
     };
 }
 
+function drawZero(x, y) {
+    var img = document.getElementById('grey');
+    var p = gameToRenderCoordinates(x, y);
+    ctx.drawImage(img, p.x, p.y, BLOCK_W, BLOCK_H);
+}
+
 function drawNumber(x, y, number) {
     var p = findTextLocation(x, y, number);
-
+    var img = document.getElementById('grey');
+    var c = gameToRenderCoordinates(x, y);
+    ctx.drawImage(img, c.x, c.y, BLOCK_W, BLOCK_H);
     ctx.fillStyle = colors[number];
     ctx.fillText(number, p.x, p.y);
 }
@@ -42,7 +50,6 @@ function drawBox(x, y) {
     ctx.strokeStyle = 'black';
     ctx.strokeRect(x * BLOCK_W, y * BLOCK_H, BLOCK_W, BLOCK_H);
 }
-
 
 function drawFlag(x, y) {
     var img = document.getElementById('flag');
@@ -83,7 +90,11 @@ function render() {
                     drawBomb(x, y);
                 }
                 else {
-                    drawNumber(x, y, field[y][x]);
+                    if (field[y][x] == 0) {
+                        drawZero(x, y);
+                    } else {
+                        drawNumber(x, y, field[y][x]);
+                    }
                 }
             }
             else if (visible[y][x] == 2) {
