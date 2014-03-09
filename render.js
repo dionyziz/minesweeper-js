@@ -3,8 +3,6 @@ var canvas = document.getElementsByTagName('canvas')[0];
 var ctx = canvas.getContext('2d');
 var BLOCK_W = W / COLS, BLOCK_H = H / ROWS;
 var colors = {
- '-1': 'red',
-    0: 'gray',
     1: 'blue',
     2: 'green',
     3: 'red',
@@ -32,14 +30,14 @@ function gameToRenderCoordinates(x, y) {
 }
 
 function drawZero(x, y) {
-    var img = document.getElementById('grey');
+    var img = document.getElementById('grey2');
     var p = gameToRenderCoordinates(x, y);
     ctx.drawImage(img, p.x, p.y, BLOCK_W, BLOCK_H);
 }
 
 function drawNumber(x, y, number) {
     var p = findTextLocation(x, y, number);
-    var img = document.getElementById('grey');
+    var img = document.getElementById('grey2');
     var c = gameToRenderCoordinates(x, y);
     ctx.drawImage(img, c.x, c.y, BLOCK_W, BLOCK_H);
     ctx.fillStyle = colors[number];
